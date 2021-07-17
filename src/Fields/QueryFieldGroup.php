@@ -23,27 +23,20 @@ final class QueryFieldGroup implements IQueryField
     ) {
         $this->columnNames = $columnNames;
     }
-
+    
     public function __toString(): string
     {
         $query = '';
-
-        while (($iterator = new ArrayIterator($this->columnNames))->valid()) {
-            $current = $iterator->current();
-
-            $query .= $this->tableName . '.' . $current;
-
-            $iterator->next();
-            
-            if ($this->separator) {
-                $query .= ', ' . $this->separator;
-            }
-
-            if ($iterator->valid()) {
+        foreach ($this->columnNames as $index => $column) {
+            if ($index !== 0) {
                 $query .= ', ';
+                if ($this->separator) {
+                    $query .= ', ' . $this->separator;
+                }    
             }
-
+            $query .= $this->tableName . '.' . $column;
         }
+
         return $query;
     }
 

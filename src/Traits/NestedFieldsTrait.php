@@ -2,7 +2,6 @@
 
 namespace SunnyFlail\QueryBuilder\Traits;
 
-use ArrayIterator;
 use SunnyFlail\QueryBuilder\Interfaces\IQueryField;
 
 trait NestedFieldsTrait
@@ -15,16 +14,15 @@ trait NestedFieldsTrait
      * 
      * @return string
      */
-    protected function implodeFields(array $fields): string
+    protected function implodeFields(array &$fields): string
     {
         $code = "";
-        while (($iterator = new ArrayIterator($fields))->valid()) {
-            $current = $iterator->current();
-            $code .= ' ' . $current->__toString();
-            $iterator->next();
-            if ($iterator->valid()) {
+
+        foreach ($fields as $key => &$value) {
+            if ($key !== 0) {
                 $code .= ', ';
             }
+            $code .= ' ' . $value->__toString();
         }
         return $code;
     }

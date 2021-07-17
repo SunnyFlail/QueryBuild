@@ -18,17 +18,14 @@ trait NestedQueriesTrait
     protected function implodeQueries(array $queries): string
     {
         $code = "";
-        while (($iterator = new ArrayIterator($queries))->valid()) {
-            /**
-             * @var ISearchTerm $current
-             */
-            $current = $iterator->current();
-            if ($iterator->key() !== 0) {
-                $code .= ' ' . $current->getCombinedOperator();
+
+        foreach ($queries as $key => &$value) {
+            if ($key !== 0) {
+                $code .= $value->getCombinedOperator();
             }
-            $code .= ' ' . $current->__toString();
-            $iterator->next();
+            $code .= ' ' . $value->__toString();
         }
+
         return $code;
     }
 
