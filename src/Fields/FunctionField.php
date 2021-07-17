@@ -1,0 +1,31 @@
+<?php
+
+namespace SunnyFlail\QueryBuilder\Fields;
+
+use Iterator;
+use SunnyFlail\QueryBuilder\Interfaces\IQueryField;
+
+/**
+ * Class for one parameter functions such as MIN, MAX etc.
+ */
+final class FunctionField implements IQueryField
+{
+
+    public function __construct(
+        private string $functionName = "MIN",
+        private ?string $alias = null,
+        private IQueryField $field
+    ) {
+    }
+
+    public function __toString(): string
+    {
+        return $this->functionName . '(' . $this->field . ')' . ($this->alias ? ' AS ' . $this->alias : '');
+    }
+
+    public function generateParameters(): Iterator
+    {
+        return $this->field->generateParameters();
+    }
+
+}
