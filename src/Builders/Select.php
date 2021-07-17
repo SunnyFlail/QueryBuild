@@ -42,7 +42,7 @@ final class Select implements IQueryBuilder
         private ?int $offset = null,
     ) {}
 
-    public function where(IQueryField ...$where): IQueryBuilder
+    public function where(ISearchTerm ...$where): IQueryBuilder
     {
         $this->where = [...$this->where, ...$where];
         return $this;
@@ -60,7 +60,7 @@ final class Select implements IQueryBuilder
         return $this;
     }
 
-    public function having(IQueryField ...$having): IQueryBuilder
+    public function having(ISearchTerm ...$having): IQueryBuilder
     {
         $this->having = [...$this->having, ...$having];
         return $this;
