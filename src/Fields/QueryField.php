@@ -3,7 +3,7 @@
 namespace SunnyFlail\QueryBuilder\Fields;
 
 use SunnyFlail\QueryBuilder\Interfaces\IQueryField;
-use Iterator;
+use Generator;
 
 final class QueryField implements IQueryField
 {
@@ -19,7 +19,7 @@ final class QueryField implements IQueryField
         return $this->field . ($this->alias ? ' AS ' . $this->alias : '');
     }
 
-    public function generateParameters(): Iterator
+    public function generateParameters(): Generator
     {
         if (is_object($this->field)) {
             return $this->field->generateParameters();

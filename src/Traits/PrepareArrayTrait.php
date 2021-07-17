@@ -2,7 +2,7 @@
 
 namespace SunnyFlail\QueryBuilder\Traits;
 
-use Iterator;
+use Generator;
 
 trait PrepareArrayTrait
 {
@@ -19,7 +19,7 @@ trait PrepareArrayTrait
         $newArr = [];
         foreach (array_values($arr) as $i => $value)
         {
-            $newArr[$prefix.$i] = $value;
+            $newArr[$this->prepareName($prefix, $i)] = $value;
         }
         return $newArr;
     }
@@ -28,8 +28,14 @@ trait PrepareArrayTrait
     {
         foreach (array_values($arr) as $i => $value)
         {
-            yield [$prefix.$i => $value];
+            yield [$this->prepareName($prefix, $i) => $value];
         }
     }
 
+    protected function prepareName(string $prefix, string $int): string
+    {
+        return str_replace('.', '_', $prefix) . '_' . $int;
+    }
+
 }
+

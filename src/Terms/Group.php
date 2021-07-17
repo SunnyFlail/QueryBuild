@@ -6,7 +6,7 @@ use SunnyFlail\QueryBuilder\Traits\GenerateParametersTrait;
 use SunnyFlail\QueryBuilder\Traits\NestedQueriesTrait;
 use SunnyFlail\QueryBuilder\Traits\SearchTermTrait;
 use SunnyFlail\QueryBuilder\Interfaces\ISearchTerm;
-use Iterator;
+use Generator;
 
 final class Group implements ISearchTerm
 {
@@ -30,7 +30,7 @@ final class Group implements ISearchTerm
         return '(' . $this->implodeQueries($this->searchTerms) . ')';
     }
 
-    public function generateParameters(): Iterator
+    public function generateParameters(): Generator
     {
         return $this->generateQueryParameters($this->searchTerms);
     }

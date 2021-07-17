@@ -2,7 +2,7 @@
 
 namespace SunnyFlail\QueryBuilder\Fields;
 
-use Iterator;
+use Generator;
 use SunnyFlail\QueryBuilder\Interfaces\IQueryField;
 
 /**
@@ -23,7 +23,7 @@ final class FunctionField implements IQueryField
         return $this->functionName . '(' . $this->field . ')' . ($this->alias ? ' AS ' . $this->alias : '');
     }
 
-    public function generateParameters(): Iterator
+    public function generateParameters(): Generator
     {
         return $this->field->generateParameters();
     }

@@ -2,7 +2,7 @@
 
 namespace SunnyFlail\QueryBuilder\Interfaces;
 
-use Iterator;
+use Generator;
 use Stringable;
 
 interface ISqlQuery extends Stringable
@@ -19,6 +19,6 @@ interface ISqlQuery extends Stringable
      * 
      * @return Generator
      */
-    public function generateParameters(): Iterator;
+    public function generateParameters(): Generator;
 
 }

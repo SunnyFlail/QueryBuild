@@ -2,7 +2,7 @@
 
 namespace SunnyFlail\QueryBuilder\Builders;
 
-use Iterator;
+use Generator;
 use AppendIterator;
 use NoRewindIterator;
 use SunnyFlail\QueryBuilder\Interfaces\IGroupBy;
@@ -80,7 +80,7 @@ final class Select implements IQueryBuilder
         return $this;
     }
 
-    public function generateParameters(): Iterator
+    public function generateParameters(): Generator
     {
         $iterator = new AppendIterator();
         foreach ($this->fields as $field) {

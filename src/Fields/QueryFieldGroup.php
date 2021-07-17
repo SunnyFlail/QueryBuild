@@ -4,7 +4,7 @@ namespace SunnyFlail\QueryBuilder\Fields;
 
 use SunnyFlail\QueryBuilder\Interfaces\IQueryField;
 use ArrayIterator;
-use Iterator;
+use Generator;
 
 /**
  * Query abstraction for fields of same table
@@ -40,7 +40,7 @@ final class QueryFieldGroup implements IQueryField
         return $query;
     }
 
-    public function generateParameters(): Iterator
+    public function generateParameters(): Generator
     {
         yield null => null;
     }

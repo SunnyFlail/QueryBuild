@@ -2,7 +2,7 @@
 
 namespace SunnyFlail\QueryBuilder;
 
-use Iterator;
+use Generator;
 use SunnyFlail\QueryBuilder\Traits\NestedQueriesTrait;
 use SunnyFlail\QueryBuilder\Interfaces\IWhereQuery;
 use SunnyFlail\QueryBuilder\Interfaces\ISearchTerm;
@@ -41,7 +41,7 @@ final class Where implements IWhereQuery
         return $params;
     }
    
-    public function generateParameters(): Iterator
+    public function generateParameters(): Generator
     {
         return $this->generateQueryParameters($this->searchTerms);
     }

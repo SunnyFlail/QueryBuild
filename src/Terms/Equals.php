@@ -2,7 +2,7 @@
 
 namespace SunnyFlail\QueryBuilder\Terms;
 
-use Iterator;
+use Generator;
 use SunnyFlail\QueryBuilder\Interfaces\ISearchTerm;
 use SunnyFlail\QueryBuilder\Traits\SearchTermTrait;
 
@@ -13,24 +13,23 @@ final class Equals implements ISearchTerm
     private string $fieldName;
 
     public function __construct(
-        string $tableName,
-        string $columnName,
+        private string $tableName,
+        private string $columnName,
         private string $value,
         string $combinedOperator = "AND"
     ) {
-        $this->fieldName = $tableName . '.' . $columnName;
         $this->value = $value;
         $this->combinedOperator = $combinedOperator;
     }
 
     public function __toString(): string
     {
-        return $this->fieldName . ' = :' . $this->fieldName;
+        return $this->tableName . '.' . $this->columnName . ' = :' . $this->tableName . '_' . $this->columnName;
     }
 
-    public function generateParameters(): Iterator
+    public function generateParameters(): Generator
     {
-        yield ':' . $this->fieldName => $this->value;
+        yield ':' . $this->tableName . '_' . $this->columnName => $this->value;
     }
 
 }

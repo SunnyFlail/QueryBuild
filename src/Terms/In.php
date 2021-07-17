@@ -2,7 +2,7 @@
 
 namespace SunnyFlail\QueryBuilder\Terms;
 
-use Iterator;
+use Generator;
 use SunnyFlail\QueryBuilder\Interfaces\ISearchTerm;
 use SunnyFlail\QueryBuilder\Traits\PrepareArrayTrait;
 use SunnyFlail\QueryBuilder\Traits\SearchTermTrait;
@@ -37,7 +37,7 @@ final class In implements ISearchTerm
         ) . ')';
     }
 
-    public function generateParameters(): Iterator
+    public function generateParameters(): Generator
     {
         return $this->generatePreparedArray($this->values, $this->query);
     }

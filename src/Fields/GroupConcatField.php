@@ -4,7 +4,7 @@ namespace SunnyFlail\QueryBuilder\Fields;
 
 use SunnyFlail\QueryBuilder\Traits\NestedFieldsTrait;
 use SunnyFlail\QueryBuilder\Interfaces\IQueryField;
-use Iterator;
+use Generator;
 use SunnyFlail\QueryBuilder\Traits\GenerateParametersTrait;
 
 final class GroupConcatField implements IQueryField
@@ -39,7 +39,7 @@ final class GroupConcatField implements IQueryField
         return $query;
     }
 
-    public function generateParameters(): Iterator
+    public function generateParameters(): Generator
     {
         return $this->generateQueryParameters($this->fields);
     }

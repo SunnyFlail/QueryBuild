@@ -6,7 +6,7 @@ use SunnyFlail\QueryBuilder\Traits\GenerateParametersTrait;
 use SunnyFlail\QueryBuilder\Traits\NestedFieldsTrait;
 use SunnyFlail\QueryBuilder\Interfaces\IQueryField;
 use SunnyFlail\QueryBuilder\Interfaces\ISqlQuery;
-use Iterator;
+use Generator;
 
 final class ConcatField implements IQueryField
 {
@@ -28,7 +28,7 @@ final class ConcatField implements IQueryField
 
     public function __toString(): string
     {
-        $query = $this->separator ? 'CONCAT_WS(' . $this->separator : 'CONCAT(';
+        $query = $this->separator ? 'CONCAT_WS("' . $this->separator . '", ': 'CONCAT(';
         $query .= $this->implodeFields($this->fields);
         $query .= ')';
         if ($this->alias) {
@@ -37,7 +37,7 @@ final class ConcatField implements IQueryField
         return $query;
     }
 
-    public function generateParameters(): Iterator
+    public function generateParameters(): Generator
     {
         return $this->generateQueryParameters($this->fields);
     }
