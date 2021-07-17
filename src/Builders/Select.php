@@ -82,31 +82,19 @@ final class Select implements IQueryBuilder
 
     public function generateParameters(): Generator
     {
-        $iterator = new AppendIterator();
-        foreach ($this->fields as $field) {
-            $generator = $field->generateParameters();
-            $iterator->append(new NoRewindIterator(
-                $generator
-            ));
-        }
-        if ($this->where) {
-            foreach ($this->where as $field) {
-                $generator = $field->generateParameters();
-                $iterator->append(new NoRewindIterator(
-                    $generator
-                ));
-            }
-        }
+        $fields = [
+            ...$this->fields,
+            ...$this->where
+        ];
         if ($this->having && $this->groupBy) {
-            foreach ($this->having as $field) {
-                $generator = $field->generateParameters();
-                $iterator->append(new NoRewindIterator(
-                    $generator
-                ));
-            }
+            $fields = [...$fields, ...$this->having];
         }
 
-        return $iterator;
+        foreach ($fields as $field) {
+            foreach ($field->generateParameters() as $key => $param) {
+                yield $key => $param;
+            }
+        }
     }
 
     public function __toString(): string
