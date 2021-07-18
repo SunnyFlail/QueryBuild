@@ -40,7 +40,7 @@ final class Insert implements IInsertBuilder, IPersistBuilder
             if ($key !== 0) {
                 $query .= ', ';
             }
-            $query .= $value;
+            $query .= $value->getParameter();
         }
         $query .= ');';
         
