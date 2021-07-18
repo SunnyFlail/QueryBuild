@@ -28,7 +28,7 @@ trait PrepareArrayTrait
     {
         foreach (array_values($arr) as $i => $value)
         {
-            yield [$this->prepareName($prefix, $i) => $value];
+            yield $this->prepareName($prefix, $i) => $value;
         }
     }
 
