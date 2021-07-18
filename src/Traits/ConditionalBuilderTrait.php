@@ -75,6 +75,6 @@ trait ConditionalBuilderTrait
                 $query .= ' OFFSET ' . $this->offset;
             }
         }
-        return $query . ';';
+        return $query;
     }
 }

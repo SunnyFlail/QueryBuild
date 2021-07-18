@@ -93,7 +93,7 @@ final class Select implements ISelectBuilder
         if ($this->groupBy) {
             $query .= ' GROUP BY ' . $this->groupBy;
             if ($this->having) {
-                $query .= ' HAVING' . implode(', ', $this->having);                
+                $query .= ' HAVING ' . implode(', ', $this->having);                
             }
         }
         $query .= $this->implodeOrderBy();

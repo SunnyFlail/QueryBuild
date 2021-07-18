@@ -4,31 +4,27 @@ namespace SunnyFlail\QueryBuilder\Terms;
 
 use SunnyFlail\QueryBuilder\Interfaces\ISearchTerm;
 use SunnyFlail\QueryBuilder\Traits\SearchTermTrait;
-use Generator;
 
 final class Like implements ISearchTerm
 {
     use SearchTermTrait;
 
     public function __construct(
-        private string $tableName,
-        private string $columnName,
-        private string $value,
+        string $tableName,
+        string $columnName,
+        mixed $value,
         private bool $negate = false,
         string $combinedOperator = "AND"
     ) {
+        $this->value = $value;
+        $this->tableName = $tableName;
+        $this->columnName = $columnName;
         $this->combinedOperator = $combinedOperator;
     }
 
-    public function __toString(): string
+    protected function getOperator(): string
     {
-        $operator = $this->negate ? ' NOT LIKE :' : ' LIKE :';
-        return $this->tableName . '.' . $this->columnName .  $operator . $this->tableName . '_' . $this->columnName;
-    }
-
-    public function generateParameters(): Generator
-    {
-        yield ':' . $this->tableName . '_' . $this->columnName => $this->value;
+        return $this->negate ? 'NOT LIKE' : 'LIKE';
     }
 
 }

@@ -12,32 +12,32 @@ final class InResults implements ISearchTerm
 {
     use SearchTermTrait, PrepareArrayTrait;
 
-    /**
-     * @var IQueryBuilder $query
-     */
-    private array $query;
-
     public function __construct(
-        private string $tableName,
-        private string $columnName,
+        string $tableName,
+        string $columnName,
         IQueryBuilder $query,
         private bool $negate = false,
         string $combinedOperator = "AND"
     ) {
-        $this->query = $query;
+        $this->value = $query;
+        $this->tableName = $tableName;
+        $this->columnName = $columnName;
         $this->combinedOperator = $combinedOperator;
     }
 
     public function __toString(): string
     {
-        $operator = $this->negate ? ' NOT IN (' : ' IN (';
-
-        return $this->tableName . '.' . $this->columnName . $operator . $this->query . ')';
+        return $this->getFieldName() . ' ' . $this->getOperator() . ' (' . $this->value . ')';
     }
 
     public function generateParameters(): Generator
     {
         return $this->query->generateParameters();
+    }
+
+    protected function getOperator(): string
+    {
+        return $this->negate ? 'NOT IN' : 'IN';;
     }
 
 }

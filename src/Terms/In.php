@@ -17,35 +17,35 @@ final class In implements ISearchTerm
     private array $values;
 
     public function __construct(
-        private string $tableName,
-        private string $columnName,
+        string $tableName,
+        string $columnName,
         array $values,
         private bool $negate = false,
         string $combinedOperator = "AND"
     ) {
-        $this->values = $values;
+        $this->value = $values;
+        $this->tableName = $tableName;
+        $this->columnName = $columnName;
         $this->combinedOperator = $combinedOperator;
     }
 
     public function __toString(): string
     {
-        $operator = $this->negate ? ' NOT IN (' : ' IN (';
-
-        return $this->getConstraint() . $operator . implode(
+        return $this->getFieldName() . ' ' . $this->getOperator() . '  (' . implode(
             ', ', array_keys(
-                $this->prepareArray($this->values, $this->getConstraint())
+                $this->prepareArray($this->value, $this->getParameterName())
             )
         ) . ')';
     }
 
-    protected function getConstraint(): string
-    {
-        return $this->tableName . '.' . $this->columnName;
-    }
-
     public function generateParameters(): Generator
     {
-        return $this->generatePreparedArray($this->values, $this->getConstraint());
+        return $this->generatePreparedArray($this->value, $this->getParameterName());
+    }
+
+    protected function getOperator(): string
+    {
+        return $this->negate ? 'NOT IN' : 'IN';;
     }
 
 }
