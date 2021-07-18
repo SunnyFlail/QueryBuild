@@ -13,7 +13,7 @@ final class RightJoin extends Join
     ) {
         parent::__construct($tableOne, $columnOne, $tableTwo, $columnTwo);
         
-        $this->prefix = 'RIGHT ';
+        $this->prefix = 'RIGHT';
     }
 
 }
