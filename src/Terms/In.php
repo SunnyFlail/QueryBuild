@@ -31,16 +31,21 @@ final class In implements ISearchTerm
     {
         $operator = $this->negate ? ' NOT IN (' : ' IN (';
 
-        return $this->tableName . '.' . $this->columnName . $operator . implode(
+        return $this->getConstraint() . $operator . implode(
             ', ', array_keys(
-                $this->prepareArray($this->values, $this->tableName . '_' . $this->columnName)
+                $this->prepareArray($this->values, $this->getConstraint())
             )
         ) . ')';
     }
 
+    protected function getConstraint(): string
+    {
+        return $this->tableName . '.' . $this->columnName;
+    }
+
     public function generateParameters(): Generator
     {
-        return $this->generatePreparedArray($this->values, $this->query);
+        return $this->generatePreparedArray($this->values, $this->getConstraint());
     }
 
 }
