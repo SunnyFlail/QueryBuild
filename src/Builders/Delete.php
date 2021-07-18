@@ -38,19 +38,9 @@ final class Delete implements IDeleteBuilder
         $query = 'DELETE ';
 
         $query .= ' FROM ' . $this->tableName;
-        if ($this->whereConditions) {
-            $query .= ' WHERE ' . $this->implodeQueries($this->whereConditions);
-        }
-        if ($this->orders) {
-            $query .= ' ORDER BY ' . implode(', ', $this->orders);
-        }
-        if ($this->limit) {
-            $query .= ' LIMIT ' . $this->limit;
-            if ($this->offset !== null) {
-                $query .= ' OFFSET ' . $this->offset;
-            }
-        }
-        $query .= ';';
+        $query .= $this->implodeWhereConditions();
+        $query .= $this->implodeOrderBy();
+        $query .= $this->implodeLimit();        
 
         return $query;
     }
