@@ -21,7 +21,7 @@ trait NestedQueriesTrait
 
         foreach ($queries as $key => &$value) {
             if ($key !== 0) {
-                $code .= $value->getCombinedOperator();
+                $code .= ' ' . $value->getCombinedOperator();
             }
             $code .= ' ' . $value->__toString();
         }
