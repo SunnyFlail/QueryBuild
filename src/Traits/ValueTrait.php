@@ -19,7 +19,7 @@ trait ValueTrait
 
     public function __toString(): string
     {
-        return $this->columnName . '=' . $this->getParameter();
+        return $this->columnName . ' = ' . $this->getParameter();
     }
 
 }

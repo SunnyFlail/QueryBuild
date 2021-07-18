@@ -33,7 +33,7 @@ final class Insert implements IInsertBuilder, IPersistBuilder
     {
         $query = 'INSERT INTO ' . $this->tableName . ' (';
         $query .= implode(
-            ',', array_keys($this->values)
+            ', ', array_keys($this->values)
         );
         $query .= ') VALUES (';
         foreach (array_values($this->values) as $key => $value) {
