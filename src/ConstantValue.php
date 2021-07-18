@@ -7,28 +7,32 @@ use SunnyFlail\QueryBuilder\Interfaces\IValue;
 use SunnyFlail\QueryBuilder\Traits\ValueTrait;
 
 /**
- * Class for values with binded parameters
+ * Class for values that are created directly inline in sql
  */
-final class Value implements IValue
+final class ConstantValue implements IValue
 {
-
     use ValueTrait;
 
     public function __construct(
         string $columnName,
         private mixed $value,
+        private bool $escape = true
     ) {
         $this->columnName = $columnName;
     }
 
     public function getParameter(): string
     {
-        return ':' . $this->columnName;
+        if ($this->escape) {
+            return'"' . $this->value . '"';
+        }
+
+        return $this->value;
     }
 
     public function generateParameters(): Generator
     {
-        yield $this->getParameter() => $this->value;
+        yield null => null;
     }
 
 }
