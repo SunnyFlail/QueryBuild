@@ -2,6 +2,9 @@
 
 namespace SunnyFlail\QueryBuilder\Traits;
 
+/**
+ * Trait for classes implementing ISearchTerm interface
+ */
 trait SearchTermTrait
 {
 

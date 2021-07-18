@@ -3,7 +3,6 @@
 namespace SunnyFlail\QueryBuilder\Traits;
 
 use SunnyFlail\QueryBuilder\Interfaces\ISearchTerm;
-use ArrayIterator;
 
 trait NestedQueriesTrait
 {
