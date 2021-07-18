@@ -29,10 +29,10 @@ final class QueryFieldGroup implements IQueryField
         $query = '';
         foreach ($this->columnNames as $index => $column) {
             if ($index !== 0) {
-                $query .= ', ';
                 if ($this->separator) {
-                    $query .= ', ' . $this->separator;
+                    $query .= ', "' . $this->separator . '"';
                 }    
+                $query .= ', ';
             }
             $query .= $this->tableName . '.' . $column;
         }
