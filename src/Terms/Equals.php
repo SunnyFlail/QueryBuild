@@ -10,16 +10,13 @@ final class Equals implements ISearchTerm
 {
     use SearchTermTrait;
 
-    private string $fieldName;
-
     public function __construct(
         private string $tableName,
         private string $columnName,
-        private string $value,
+        private mixed $value,
         private bool $negate = false,
         string $combinedOperator = "AND"
     ) {
-        $this->value = $value;
         $this->combinedOperator = $combinedOperator;
     }
 

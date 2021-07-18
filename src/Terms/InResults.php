@@ -12,20 +12,18 @@ final class InResults implements ISearchTerm
 {
     use SearchTermTrait, PrepareArrayTrait;
 
-    private string $fieldName;
     /**
      * @var IQueryBuilder $query
      */
     private array $query;
 
     public function __construct(
-        string $tableName,
-        string $columnName,
+        private string $tableName,
+        private string $columnName,
         IQueryBuilder $query,
         private bool $negate = false,
         string $combinedOperator = "AND"
     ) {
-        $this->fieldName = $tableName . '.' . $columnName;
         $this->query = $query;
         $this->combinedOperator = $combinedOperator;
     }
@@ -34,7 +32,7 @@ final class InResults implements ISearchTerm
     {
         $operator = $this->negate ? ' NOT IN (' : ' IN (';
 
-        return $this->query . $operator . $this->select . ')';
+        return $this->tableName . '.' . $this->columnName . $operator . $this->query . ')';
     }
 
     public function generateParameters(): Generator

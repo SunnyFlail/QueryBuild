@@ -11,20 +11,18 @@ final class In implements ISearchTerm
 {
     use SearchTermTrait, PrepareArrayTrait;
 
-    private string $query;
     /**
      * @var string[] $values
      */
     private array $values;
 
     public function __construct(
-        string $tableName,
-        string $columnName,
+        private string $tableName,
+        private string $columnName,
         array $values,
         private bool $negate = false,
         string $combinedOperator = "AND"
     ) {
-        $this->query = $tableName . '.' . $columnName;
         $this->values = $values;
         $this->combinedOperator = $combinedOperator;
     }
@@ -33,9 +31,9 @@ final class In implements ISearchTerm
     {
         $operator = $this->negate ? ' NOT IN (' : ' IN (';
 
-        return $this->query . $operator . implode(
+        return $this->tableName . '.' . $this->columnName . $operator . implode(
             ', ', array_keys(
-                $this->prepareArray($this->values, $this->query)
+                $this->prepareArray($this->values, $this->tableName . '_' . $this->columnName)
             )
         ) . ')';
     }

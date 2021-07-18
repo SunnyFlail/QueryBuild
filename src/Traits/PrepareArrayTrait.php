@@ -34,7 +34,7 @@ trait PrepareArrayTrait
 
     protected function prepareName(string $prefix, string $int): string
     {
-        return str_replace('.', '_', $prefix) . '_' . $int;
+        return ':' . str_replace('.', '_', $prefix) . '_' . $int;
     }
 
 }

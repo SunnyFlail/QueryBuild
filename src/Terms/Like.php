@@ -10,8 +10,6 @@ final class Like implements ISearchTerm
 {
     use SearchTermTrait;
 
-    private string $fieldName;
-
     public function __construct(
         private string $tableName,
         private string $columnName,
@@ -19,7 +17,6 @@ final class Like implements ISearchTerm
         private bool $negate = false,
         string $combinedOperator = "AND"
     ) {
-        $this->value = $value;
         $this->combinedOperator = $combinedOperator;
     }
 
