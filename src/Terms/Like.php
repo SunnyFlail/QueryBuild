@@ -16,6 +16,7 @@ final class Like implements ISearchTerm
         private string $tableName,
         private string $columnName,
         private string $value,
+        private bool $negate = false,
         string $combinedOperator = "AND"
     ) {
         $this->value = $value;
@@ -24,7 +25,8 @@ final class Like implements ISearchTerm
 
     public function __toString(): string
     {
-        return $this->tableName . '.' . $this->columnName . ' LIKE :' . $this->tableName . '_' . $this->columnName;
+        $operator = $this->negate ? ' NOT LIKE :' : ' LIKE :';
+        return $this->tableName . '.' . $this->columnName .  $operator . $this->tableName . '_' . $this->columnName;
     }
 
     public function generateParameters(): Generator

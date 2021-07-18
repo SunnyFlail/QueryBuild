@@ -22,6 +22,7 @@ final class InResults implements ISearchTerm
         string $tableName,
         string $columnName,
         IQueryBuilder $query,
+        private bool $negate = false,
         string $combinedOperator = "AND"
     ) {
         $this->fieldName = $tableName . '.' . $columnName;
@@ -31,7 +32,9 @@ final class InResults implements ISearchTerm
 
     public function __toString(): string
     {
-        return $this->query . ' IN (' . $this->select . ')';
+        $operator = $this->negate ? ' NOT IN (' : ' IN (';
+
+        return $this->query . $operator . $this->select . ')';
     }
 
     public function generateParameters(): Generator

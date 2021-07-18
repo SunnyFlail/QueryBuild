@@ -21,6 +21,7 @@ final class In implements ISearchTerm
         string $tableName,
         string $columnName,
         array $values,
+        private bool $negate = false,
         string $combinedOperator = "AND"
     ) {
         $this->query = $tableName . '.' . $columnName;
@@ -30,7 +31,9 @@ final class In implements ISearchTerm
 
     public function __toString(): string
     {
-        return $this->query . ' IN (' . implode(
+        $operator = $this->negate ? ' NOT IN (' : ' IN (';
+
+        return $this->query . $operator . implode(
             ', ', array_keys(
                 $this->prepareArray($this->values, $this->query)
             )

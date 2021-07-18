@@ -16,6 +16,7 @@ final class Equals implements ISearchTerm
         private string $tableName,
         private string $columnName,
         private string $value,
+        private bool $negate = false,
         string $combinedOperator = "AND"
     ) {
         $this->value = $value;
@@ -24,7 +25,8 @@ final class Equals implements ISearchTerm
 
     public function __toString(): string
     {
-        return $this->tableName . '.' . $this->columnName . ' = :' . $this->tableName . '_' . $this->columnName;
+        $operator = $this->negate ? ' != :' : ' = :';
+        return $this->tableName . '.' . $this->columnName . $operator . $this->tableName . '_' . $this->columnName;
     }
 
     public function generateParameters(): Generator
