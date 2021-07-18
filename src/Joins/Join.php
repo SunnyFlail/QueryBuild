@@ -19,7 +19,7 @@ class Join implements IJoinQuery
 
     public function __toString(): string
     {
-        return $this->prefix . ' JOIN'  . $this->tableTwo . ' ON ' . $this->tableOne
+        return $this->prefix . ' JOIN '  . $this->tableTwo . ' ON ' . $this->tableOne
         . '.' . $this->columnOne . ' = ' . $this->tableTwo . '.' . $this->columnTwo;
     }
 }
