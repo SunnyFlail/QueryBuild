@@ -46,7 +46,7 @@ final class Update implements IUpdateBuilder
     public function generateParameters(): Generator
     {
         $params = [
-            ...$this->values,
+            ...array_values($this->values),
             ...$this->whereConditions
         ];
 
