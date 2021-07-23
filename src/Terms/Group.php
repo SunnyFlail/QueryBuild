@@ -14,7 +14,7 @@ final class Group implements ISearchTerm
     use NestedQueriesTrait, GenerateParametersTrait, SearchTermTrait;
 
     public function __construct(
-        string $combinedOperator,
+        string $combinedOperator = 'AND',
         ISearchTerm ...$searchTerms
     ) {
         $this->combinedOperator = $combinedOperator;

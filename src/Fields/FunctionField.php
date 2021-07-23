@@ -12,9 +12,9 @@ final class FunctionField implements IQueryField
 {
 
     public function __construct(
-        private string $functionName = "MIN",
-        private ?string $alias = null,
-        private IQueryField $field
+        private string $functionName,
+        private IQueryField $field,
+        private ?string $alias = null
     ) {
     }
 
