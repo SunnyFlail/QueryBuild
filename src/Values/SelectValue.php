@@ -1,6 +1,6 @@
 <?php
 
-namespace SunnyFlail\QueryBuilder;
+namespace SunnyFlail\QueryBuilder\Values;
 
 use Generator;
 use SunnyFlail\QueryBuilder\Traits\ValueTrait;

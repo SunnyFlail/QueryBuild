@@ -13,7 +13,7 @@ final class InnerJoin extends Join
     ) {
         parent::__construct($tableOne, $columnOne, $tableTwo, $columnTwo);
         
-        $this->prefix = 'INNER ';
+        $this->prefix = 'INNER';
     }
 
 }

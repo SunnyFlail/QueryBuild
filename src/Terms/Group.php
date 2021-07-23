@@ -4,20 +4,18 @@ namespace SunnyFlail\QueryBuilder\Terms;
 
 use SunnyFlail\QueryBuilder\Traits\GenerateParametersTrait;
 use SunnyFlail\QueryBuilder\Traits\NestedQueriesTrait;
-use SunnyFlail\QueryBuilder\Traits\SearchTermTrait;
 use SunnyFlail\QueryBuilder\Interfaces\ISearchTerm;
 use Generator;
 
 final class Group implements ISearchTerm
 {
 
-    use NestedQueriesTrait, GenerateParametersTrait, SearchTermTrait;
+    use NestedQueriesTrait, GenerateParametersTrait;
 
     public function __construct(
-        string $combinedOperator = 'AND',
+        private string $combinedOperator,
         ISearchTerm ...$searchTerms
     ) {
-        $this->combinedOperator = $combinedOperator;
         $this->searchTerms = $searchTerms;
     }
 
@@ -34,5 +32,11 @@ final class Group implements ISearchTerm
     {
         return $this->generateQueryParameters($this->searchTerms);
     }
+
+    public function getCombinedOperator(): string
+    {
+        return $this->combinedOperator;
+    }
+
 
 }

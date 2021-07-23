@@ -5,7 +5,7 @@ namespace SunnyFlail\QueryBuilder\Terms;
 use SunnyFlail\QueryBuilder\Interfaces\ISearchTerm;
 use SunnyFlail\QueryBuilder\Traits\SearchTermTrait;
 
-final class Equals implements ISearchTerm
+final class GreaterThan implements ISearchTerm
 {
     use SearchTermTrait;
 
@@ -13,7 +13,7 @@ final class Equals implements ISearchTerm
         string $tableName,
         string $columnName,
         mixed $value,
-        private bool $negate = false,
+        private bool $orEqual = false,
         string $combinedOperator = "AND"
     ) {
         $this->value = $value;
@@ -24,7 +24,7 @@ final class Equals implements ISearchTerm
 
     protected function getOperator(): string
     {
-        return ($this->negate ? '!=' : '=');
+        return $this->orEqual ? '>=' : '>';
     }
 
 }

@@ -30,7 +30,7 @@ final class GroupConcatField implements IQueryField
         $query = 'GROUP_CONCAT(';
         $query .= $this->implodeFields($this->fields);
         if ($this->separator) {
-            $query .= 'SEPARATOR "' . $this->separator . '"';
+            $query .= ' SEPARATOR "' . $this->separator . '"';
         }
         $query .= ')';
         if ($this->alias) {

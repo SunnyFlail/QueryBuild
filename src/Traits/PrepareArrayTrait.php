@@ -19,7 +19,7 @@ trait PrepareArrayTrait
         $newArr = [];
         foreach (array_values($arr) as $i => $value)
         {
-            $newArr[$this->prepareName($prefix, $i)] = $value;
+            $newArr[$prefix . '_' . $i] = $value;
         }
         return $newArr;
     }
@@ -28,13 +28,8 @@ trait PrepareArrayTrait
     {
         foreach (array_values($arr) as $i => $value)
         {
-            yield [$this->prepareName($prefix, $i) => $value];
+            yield $prefix . '_' . $i => $value;
         }
-    }
-
-    protected function prepareName(string $prefix, string $int): string
-    {
-        return str_replace('.', '_', $prefix) . '_' . $int;
     }
 
 }

@@ -13,7 +13,7 @@ final class OuterJoin extends Join
     ) {
         parent::__construct($tableOne, $columnOne, $tableTwo, $columnTwo);
         
-        $this->prefix = 'FULL ';
+        $this->prefix = 'FULL';
     }
 
 }

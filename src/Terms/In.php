@@ -11,7 +11,6 @@ final class In implements ISearchTerm
 {
     use SearchTermTrait, PrepareArrayTrait;
 
-    private string $query;
     /**
      * @var string[] $values
      */
@@ -24,25 +23,29 @@ final class In implements ISearchTerm
         private bool $negate = false,
         string $combinedOperator = "AND"
     ) {
-        $this->query = $tableName . '.' . $columnName;
-        $this->values = $values;
+        $this->value = $values;
+        $this->tableName = $tableName;
+        $this->columnName = $columnName;
         $this->combinedOperator = $combinedOperator;
     }
 
     public function __toString(): string
     {
-        $operator = $this->negate ? ' NOT IN (' : ' IN (';
-
-        return $this->query . $operator . implode(
+        return $this->getFieldName() . ' ' . $this->getOperator() . '  (' . implode(
             ', ', array_keys(
-                $this->prepareArray($this->values, $this->query)
+                $this->prepareArray($this->value, $this->getParameterName())
             )
         ) . ')';
     }
 
     public function generateParameters(): Generator
     {
-        return $this->generatePreparedArray($this->values, $this->query);
+        return $this->generatePreparedArray($this->value, $this->getParameterName());
+    }
+
+    protected function getOperator(): string
+    {
+        return $this->negate ? 'NOT IN' : 'IN';;
     }
 
 }
