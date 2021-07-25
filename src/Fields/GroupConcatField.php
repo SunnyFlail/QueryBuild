@@ -4,8 +4,8 @@ namespace SunnyFlail\QueryBuilder\Fields;
 
 use SunnyFlail\QueryBuilder\Traits\NestedFieldsTrait;
 use SunnyFlail\QueryBuilder\Interfaces\IQueryField;
-use Generator;
 use SunnyFlail\QueryBuilder\Traits\GenerateParametersTrait;
+use Generator;
 
 final class GroupConcatField implements IQueryField
 {

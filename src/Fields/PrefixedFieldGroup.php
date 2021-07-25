@@ -6,9 +6,9 @@ use SunnyFlail\QueryBuilder\Interfaces\IQueryField;
 use Generator;
 
 /**
- * Query abstraction for fields of same table
+ * Query abstraction for fields of same table that are aliased with a prefix or table name
  */
-final class QueryFieldGroup implements IQueryField
+final class PrefixedFieldGroup implements IQueryField
 {
     /**
      * @var string[] $columnNames
@@ -17,7 +17,7 @@ final class QueryFieldGroup implements IQueryField
 
     public function __construct(
         private string $tableName,
-        private ?string $separator = null,
+        private ?string $prefix,
         string ...$columnNames
     ) {
         $this->columnNames = $columnNames;
@@ -28,12 +28,9 @@ final class QueryFieldGroup implements IQueryField
         $query = '';
         foreach ($this->columnNames as $index => $column) {
             if ($index !== 0) {
-                if ($this->separator) {
-                    $query .= ', "' . $this->separator . '"';
-                }    
                 $query .= ', ';
             }
-            $query .= $this->tableName . '.' . $column;
+            $query .= $this->tableName . '.' . $column . ' AS ' . $this->getAlias($column);
         }
 
         return $query;
@@ -42,6 +39,22 @@ final class QueryFieldGroup implements IQueryField
     public function generateParameters(): Generator
     {
         yield null => null;
+    }
+
+    /**
+     * Returns the prefixed alias
+     * 
+     * @param string $columnName
+     * 
+     * @return string
+     */
+    private function getAlias(string $columnName): string
+    {
+        if ($this->prefix) {
+            return $this->prefix . '_' . $columnName;
+        }
+
+        return $this->tableName . '_' . $columnName;
     }
 
 }
