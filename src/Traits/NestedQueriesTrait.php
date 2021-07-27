@@ -16,7 +16,7 @@ trait NestedQueriesTrait
      */
     protected function implodeQueries(array $queries): string
     {
-        $code = "";
+        $code = '';
 
         foreach ($queries as $key => &$value) {
             if ($key !== 0) {

@@ -21,7 +21,7 @@ final class In implements ISearchTerm
         string $columnName,
         array $values,
         private bool $negate = false,
-        string $combinedOperator = "AND"
+        string $combinedOperator = 'AND'
     ) {
         $this->value = $values;
         $this->tableName = $tableName;

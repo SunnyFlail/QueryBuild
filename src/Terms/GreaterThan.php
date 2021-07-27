@@ -14,7 +14,7 @@ final class GreaterThan implements ISearchTerm
         string $columnName,
         mixed $value,
         private bool $orEqual = false,
-        string $combinedOperator = "AND"
+        string $combinedOperator = 'AND'
     ) {
         $this->value = $value;
         $this->tableName = $tableName;

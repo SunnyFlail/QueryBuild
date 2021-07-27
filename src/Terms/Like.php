@@ -14,7 +14,7 @@ final class Like implements ISearchTerm
         string $columnName,
         mixed $value,
         private bool $negate = false,
-        string $combinedOperator = "AND"
+        string $combinedOperator = 'AND'
     ) {
         $this->value = $value;
         $this->tableName = $tableName;

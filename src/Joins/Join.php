@@ -12,14 +12,16 @@ class Join implements IJoinQuery
         protected string $tableOne,
         protected string $columnOne,
         protected string $tableTwo,
-        protected string $columnTwo
+        protected string $columnTwo,
+        protected ?string $alias = null
     ) {
         $this->prefix = null;
     }
 
     public function __toString(): string
     {
-        return $this->prefix . ' JOIN '  . $this->tableTwo . ' ON ' . $this->tableOne
-        . '.' . $this->columnOne . ' = ' . $this->tableTwo . '.' . $this->columnTwo;
+        return $this->prefix . 'JOIN '  . $this->tableTwo . ' ON ' . $this->tableOne
+        . '.' . $this->columnOne . ' = ' . $this->tableTwo . '.' . $this->columnTwo
+        . ($this->alias ? ' AS ' . $this->alias : '');
     }
 }

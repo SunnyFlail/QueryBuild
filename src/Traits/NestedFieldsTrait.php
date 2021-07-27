@@ -16,7 +16,7 @@ trait NestedFieldsTrait
      */
     protected function implodeFields(array &$fields): string
     {
-        $code = "";
+        $code = '';
 
         foreach ($fields as $key => &$value) {
             if ($key !== 0) {

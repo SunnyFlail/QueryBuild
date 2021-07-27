@@ -9,11 +9,12 @@ final class RightJoin extends Join
         string $tableOne,
         string $columnOne,
         string $tableTwo,
-        string $columnTwo
+        string $columnTwo,
+        ?string $alias = null
     ) {
-        parent::__construct($tableOne, $columnOne, $tableTwo, $columnTwo);
-        
-        $this->prefix = 'RIGHT';
+        parent::__construct($tableOne, $columnOne, $tableTwo, $columnTwo, $alias);
+
+        $this->prefix = 'RIGHT ';
     }
 
 }

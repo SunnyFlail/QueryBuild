@@ -17,7 +17,7 @@ final class InResults implements ISearchTerm
         string $columnName,
         IQueryBuilder $query,
         private bool $negate = false,
-        string $combinedOperator = "AND"
+        string $combinedOperator = 'AND'
     ) {
         $this->value = $query;
         $this->tableName = $tableName;
